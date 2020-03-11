@@ -5,15 +5,21 @@ import (
 	"testing"
 )
 
+type Score struct {
+	Id   uint64 `korm:"PRIMARY KEY"`
+	Name string `korm:"not null"`
+	Age  int8   `korm:"not null default 1"`
+}
+
 func TestNewEngine(t *testing.T) {
 	engine, _ := NewEngine("mysql", "root:123456@/User?charset=utf8")
 	defer engine.Close()
 
-	s := engine.NewSession()
-	_, _ = s.Raw("DROP TABLE IF EXISTS User;").Exec()
-	_, _ = s.Raw("CREATE TABLE User(Name text);").Exec()
-	_, _ = s.Raw("CREATE TABLE User(Name text);").Exec()
-	result, _ := s.Raw("INSERT INTO User(`Name`) values (?), (?)", "Tom", "Sam").Exec()
-	count, _ := result.RowsAffected()
-	t.Logf("Exec success %d affected", count)
+	s := engine.NewSession().Model(&Score{})
+	_ = s.DropTable()
+	_ = s.CreateTable()
+
+	if !s.HasTable() {
+		t.Fatal("failed to create table")
+	}
 }

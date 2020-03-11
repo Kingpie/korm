@@ -2,13 +2,15 @@ package korm
 
 import (
 	"database/sql"
+	"github.com/Kingpie/korm/dialect"
 	"github.com/Kingpie/korm/log"
 	"github.com/Kingpie/korm/session"
 )
 
 //与用户交互
 type Engine struct {
-	db *sql.DB
+	db      *sql.DB
+	dialect dialect.Dialect
 }
 
 func NewEngine(driver, source string) (e *Engine, err error) {
@@ -23,7 +25,13 @@ func NewEngine(driver, source string) (e *Engine, err error) {
 		return
 	}
 
-	e = &Engine{db: db}
+	dial, ok := dialect.GetDialect(driver)
+	if !ok {
+		log.Error("dialect %s not found", driver)
+		return
+	}
+
+	e = &Engine{db: db, dialect: dial}
 	log.Info("Connect db success")
 	return
 }
@@ -37,5 +45,5 @@ func (engine *Engine) Close() {
 }
 
 func (engine *Engine) NewSession() *session.Session {
-	return session.New(engine.db)
+	return session.New(engine.db, engine.dialect)
 }
