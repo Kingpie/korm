@@ -2,6 +2,7 @@ package session
 
 import (
 	"database/sql"
+	"github.com/Kingpie/korm/dialect"
 	"github.com/Kingpie/korm/log"
 	"testing"
 
@@ -12,7 +13,8 @@ func TestSession_Exec(t *testing.T) {
 	db, _ := sql.Open("mysql", "root:123456@/User?charset=utf8")
 	defer func() { _ = db.Close() }()
 
-	s := New(db)
+	dealect, _ := dialect.GetDialect("mysql")
+	s := New(db, dealect)
 	s = s.Raw("select * from test")
 	result, err := s.Exec()
 	if err != nil {
