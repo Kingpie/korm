@@ -1,2 +1,2 @@
 # korm
-Simple Orm For Go
+Simple ORM For Go
