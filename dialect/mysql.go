@@ -13,6 +13,7 @@ func init() {
 	RegisterDialect("mysql", &mysql{})
 }
 
+//未完待续
 func (m *mysql) DataTypeOf(val reflect.Value) string {
 	switch val.Kind() {
 	case reflect.Bool:
