@@ -1,19 +1,19 @@
 package schema
 
 import (
-	"github.com/Kingpie/korm/dialect"
 	"go/ast"
+	"korm/dialect"
 	"reflect"
 )
 
-//列
+// 列
 type Field struct {
 	Name string //字段名
 	Type string //字段类型
 	Tag  string //约束条件
 }
 
-//表
+// 表
 type Schema struct {
 	Model      interface{}       //映射对象
 	Name       string            //表名
@@ -26,7 +26,7 @@ func (schema *Schema) GetField(name string) *Field {
 	return schema.fieldMap[name]
 }
 
-//将结构体解析为Schema
+// 将结构体解析为Schema
 func Parse(dest interface{}, d dialect.Dialect) *Schema {
 	modelType := reflect.Indirect(reflect.ValueOf(dest)).Type()
 	schema := &Schema{

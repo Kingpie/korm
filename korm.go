@@ -2,12 +2,12 @@ package korm
 
 import (
 	"database/sql"
-	"github.com/Kingpie/korm/dialect"
-	"github.com/Kingpie/korm/log"
-	"github.com/Kingpie/korm/session"
+	"korm/dialect"
+	"korm/log"
+	"korm/session"
 )
 
-//与用户交互
+// 与用户交互
 type Engine struct {
 	db      *sql.DB
 	dialect dialect.Dialect

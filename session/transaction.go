@@ -1,6 +1,6 @@
 package session
 
-import "github.com/Kingpie/korm/log"
+import "korm/log"
 
 func (s *Session) Begin() (err error) {
 	log.Info("transaction begin")

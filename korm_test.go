@@ -2,8 +2,8 @@ package korm
 
 import (
 	"errors"
-	"github.com/Kingpie/korm/session"
 	_ "github.com/go-sql-driver/mysql"
+	"korm/session"
 	"testing"
 )
 

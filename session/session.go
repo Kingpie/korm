@@ -3,15 +3,15 @@ package session
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Kingpie/korm/clause"
-	"github.com/Kingpie/korm/dialect"
-	"github.com/Kingpie/korm/log"
-	"github.com/Kingpie/korm/schema"
+	"korm/clause"
+	"korm/dialect"
+	"korm/log"
+	"korm/schema"
 	"reflect"
 	"strings"
 )
 
-//与db交互
+// 与db交互
 type Session struct {
 	db       *sql.DB
 	sql      strings.Builder
@@ -98,7 +98,7 @@ func (s *Session) Raw(sql string, values ...interface{}) *Session {
 	return s
 }
 
-//执行sql语句
+// 执行sql语句
 func (s *Session) Exec() (result sql.Result, err error) {
 	defer s.Clear()
 	log.Info(s.sql.String(), s.sqlVars)
@@ -109,14 +109,14 @@ func (s *Session) Exec() (result sql.Result, err error) {
 	return
 }
 
-//查询单条记录
+// 查询单条记录
 func (s *Session) QueryRow() *sql.Row {
 	defer s.Clear()
 	log.Info(s.sql.String(), s.sqlVars)
 	return s.DB().QueryRow(s.sql.String(), s.sqlVars...)
 }
 
-//查询多条记录
+// 查询多条记录
 func (s *Session) QueryRows() (rows *sql.Rows, err error) {
 	defer s.Clear()
 	log.Info(s.sql.String(), s.sqlVars)

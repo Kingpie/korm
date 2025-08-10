@@ -2,7 +2,7 @@ package session
 
 import (
 	"errors"
-	"github.com/Kingpie/korm/clause"
+	"korm/clause"
 	"reflect"
 )
 
@@ -58,8 +58,8 @@ func (s *Session) Find(values interface{}) error {
 	return rows.Close()
 }
 
-//支持map[string]interface{}
-//同时支持kv键值对 "name","Lily","id",123
+// 支持map[string]interface{}
+// 同时支持kv键值对 "name","Lily","id",123
 func (s *Session) Update(kv ...interface{}) (int64, error) {
 	s.CallMethod(BeforeUpdate, nil)
 	m, ok := kv[0].(map[string]interface{})

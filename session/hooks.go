@@ -1,7 +1,7 @@
 package session
 
 import (
-	"github.com/Kingpie/korm/log"
+	"korm/log"
 	"reflect"
 )
 
