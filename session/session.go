@@ -83,17 +83,34 @@ func (s *Session) DropTable() error {
 	return err
 }
 
+// HasTable 检查数据库中是否存在当前会话关联的表
+// 返回值:
+//
+//	bool - 如果表存在则返回true，否则返回false
 func (s *Session) HasTable() bool {
+	// 生成检查表是否存在的SQL语句和参数值
 	sqlStr, values := s.dialect.TableExistSQL(s.RefTable().Name)
+
+	// 执行查询并获取结果行
 	row := s.Raw(sqlStr, values...).QueryRow()
+
+	// 扫描查询结果
 	var tmp string
 	_ = row.Scan(&tmp)
+
+	// 比较查询结果与表名来判断表是否存在
 	return tmp == s.RefTable().Name
 }
 
+// Raw appends raw SQL and values to current session
+// sql: raw SQL string to be appended
+// values: variadic interface{} values to be appended as SQL variables
+// returns: pointer to current Session instance for method chaining
 func (s *Session) Raw(sql string, values ...interface{}) *Session {
+	// Append SQL string and a space to session's SQL buffer
 	s.sql.WriteString(sql)
 	s.sql.WriteString(" ")
+	// Append provided values to session's SQL variables slice
 	s.sqlVars = append(s.sqlVars, values...)
 	return s
 }

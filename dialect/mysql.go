@@ -3,6 +3,7 @@ package dialect
 import (
 	"fmt"
 	"reflect"
+	"time"
 )
 
 type mysql struct{}
@@ -13,7 +14,6 @@ func init() {
 	RegisterDialect("mysql", &mysql{})
 }
 
-//未完待续
 func (m *mysql) DataTypeOf(val reflect.Value) string {
 	switch val.Kind() {
 	case reflect.Bool:
@@ -34,6 +34,12 @@ func (m *mysql) DataTypeOf(val reflect.Value) string {
 		return "double"
 	case reflect.String:
 		return "text"
+	case reflect.Array, reflect.Slice:
+		return "blob"
+	case reflect.Struct:
+		if _, ok := val.Interface().(time.Time); ok {
+			return "datetime"
+		}
 	}
 
 	panic(fmt.Sprintf("invalid sql type %s %s", val.Type().Name(), val.Kind()))

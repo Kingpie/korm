@@ -21,7 +21,7 @@ type Clause struct {
 	sqlVars map[Type][]interface{}
 }
 
-//设置语法块
+// 设置语法块
 func (c *Clause) Set(name Type, vars ...interface{}) {
 	if c.sql == nil {
 		c.sql = make(map[Type]string)
@@ -33,15 +33,26 @@ func (c *Clause) Set(name Type, vars ...interface{}) {
 	c.sqlVars[name] = vars
 }
 
-//按顺序拼接
+// Build 根据给定的顺序构建SQL语句片段
+// 参数:
+//
+//	orders - 指定构建SQL的顺序，可变参数，类型为Type
+//
+// 返回值:
+//
+//	string - 构建完成的SQL语句字符串
+//	[]interface{} - SQL语句中对应的变量值切片
 func (c *Clause) Build(orders ...Type) (string, []interface{}) {
 	var sqls []string
 	var vars []interface{}
+
+	// 按照指定顺序遍历，构建SQL语句和变量
 	for _, order := range orders {
 		if sql, ok := c.sql[order]; ok {
 			sqls = append(sqls, sql)
 			vars = append(vars, c.sqlVars[order]...)
 		}
 	}
+
 	return strings.Join(sqls, " "), vars
 }

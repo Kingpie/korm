@@ -7,7 +7,7 @@ import (
 
 type Score struct {
 	Id   string `korm:"PRIMARY KEY"`
-	Name string
+	Name string `korm:"not null"`
 	Age  int
 }
 

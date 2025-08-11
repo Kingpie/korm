@@ -2,6 +2,7 @@ package session
 
 import (
 	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 	"korm/dialect"
 	"testing"
 )
@@ -18,7 +19,7 @@ var (
 )
 
 func TestSession_Find(t *testing.T) {
-	db, _ := sql.Open("mysql", "root:123456@/User?charset=utf8")
+	db, _ := sql.Open("mysql", "root:123456@/user?charset=utf8")
 	dia, _ := dialect.GetDialect("mysql")
 	defer db.Close()
 

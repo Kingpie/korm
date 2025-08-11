@@ -2,6 +2,7 @@ package session
 
 import (
 	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 	"korm/dialect"
 	"korm/log"
 	"testing"
@@ -25,7 +26,7 @@ func (account *account) AfterQuery(s *Session) error {
 }
 
 func TestSession_CallMethod(t *testing.T) {
-	db, _ := sql.Open("mysql", "root:123456@/User?charset=utf8")
+	db, _ := sql.Open("mysql", "root:123456@/user?charset=utf8")
 	dia, _ := dialect.GetDialect("mysql")
 	defer db.Close()
 
