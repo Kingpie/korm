@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"github.com/Kingpie/korm/dialect"
+	"korm/dialect"
 	"testing"
 )
 

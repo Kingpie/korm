@@ -2,8 +2,7 @@ package session
 
 import (
 	"database/sql"
-	"github.com/Kingpie/korm/dialect"
-	_ "github.com/go-sql-driver/mysql"
+	"korm/dialect"
 	"testing"
 )
 

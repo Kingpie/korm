@@ -2,9 +2,8 @@ package session
 
 import (
 	"database/sql"
-	"github.com/Kingpie/korm/dialect"
-	"github.com/Kingpie/korm/log"
-	_ "github.com/go-sql-driver/mysql"
+	"korm/dialect"
+	"korm/log"
 	"testing"
 )
 

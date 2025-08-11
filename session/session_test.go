@@ -2,11 +2,9 @@ package session
 
 import (
 	"database/sql"
-	"github.com/Kingpie/korm/dialect"
-	"github.com/Kingpie/korm/log"
+	"korm/dialect"
+	"korm/log"
 	"testing"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func TestSession_Exec(t *testing.T) {
